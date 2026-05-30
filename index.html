@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AFISHA-LOVES</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+<span>A</span>
+AFISHA-LOVES
+</div>
+
+<div class="nav-right">
+
+<select id="citySelect">
+
+<option value="">
+Select City
+</option>
+
+<option>
+Berlin
+</option>
+
+<option>
+London
+</option>
+
+<option>
+New York
+</option>
+
+<option>
+Los Angeles
+</option>
+
+</select>
+
+</div>
+
+</header>
+
+<section class="hero">
+
+<div class="hero-overlay"></div>
+
+<div class="hero-content">
+
+<h1>
+MOVIES & EVENTS
+</h1>
+
+<p>
+Premium cinema experience
+</p>
+
+<a href="#movies">
+
+<button class="hero-btn">
+Watch Now
+</button>
+
+</a>
+
+</div>
+
+</section>
+
+<section class="trending">
+
+<div class="trending-top">
+
+<h2>
+Trending Movies
+</h2>
+
+<div class="slider-buttons">
+
+<button id="prevBtn">
+←
+</button>
+
+<button id="nextBtn">
+→
+</button>
+
+</div>
+
+</div>
+
+<div class="slider" id="slider"></div>
+
+</section>
+
+<section class="movies" id="movies">
+
+<div class="movies-top">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search movies..."
+>
+
+<select id="cinemaSelect">
+
+<option value="">
+Select Cinema
+</option>
+
+</select>
+
+<input
+type="text"
+id="customCinema"
+placeholder="Enter cinema address"
+list="addressSuggestions"
+autocomplete="off"
+>
+
+<datalist id="addressSuggestions"></datalist>
+
+<div class="categories">
+
+<button class="category-btn active" data-category="all">
+All
+</button>
+
+<button class="category-btn" data-category="action">
+Action
+</button>
+
+<button class="category-btn" data-category="drama">
+Drama
+</button>
+
+<button class="category-btn" data-category="comedy">
+Comedy
+</button>
+
+<button class="category-btn" data-category="horror">
+Horror
+</button>
+
+<button class="category-btn" data-category="animation">
+Animation
+</button>
+
+<button class="category-btn" data-category="thriller">
+Thriller
+</button>
+
+</div>
+
+</div>
+
+<div class="movies-grid" id="moviesGrid"></div>
+
+<footer>
+
+<a href="#">
+Privacy Policy
+</a>
+
+<a href="#">
+Refund Policy
+</a>
+
+<a href="#">
+Terms
+</a>
+
+<a href="#">
+Support
+</a>
+
+</footer>
+
+<script>
+
+/* API */
+
+const API_KEY =
+'12cf4dbd2e9dac053da42fc6ea685a97';
+
+const moviesGrid =
+document.getElementById('moviesGrid');
+
+const slider =
+document.getElementById('slider');
+
+
+
+
+
+/* LOAD TRENDING */
+
+async function loadTrending(){
+
+const res = await fetch(
+
+`https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`
+
+);
+
+const data = await res.json();
+
+slider.innerHTML='';
+
+data.results.slice(0,10).forEach(movie=>{
+
+const poster =
+`https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
+slider.innerHTML += `
+
+<div class="slide">
+
+<img src="${poster}">
+
+<div class="slide-content">
+
+<h3>
+${movie.title}
+</h3>
+
+<p class="movie-category">
+⭐ ${movie.vote_average.toFixed(1)}
+</p>
+
+<button class="slide-btn"
+onclick="openMovie('${movie.title.replace(/'/g,"")}', '${poster}')">
+
+Buy Ticket
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+
+
+
+/* LOAD MOVIES */
+
+async function loadMovies(){
+
+const res = await fetch(
+
+`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
+
+);
+
+const data = await res.json();
+
+moviesGrid.innerHTML='';
+
+data.results.forEach(movie=>{
+
+const poster =
+`https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
+const genre =
+movie.genre_ids[0];
+
+let category = 'action';
+
+if(genre == 35){
+category = 'comedy';
+}
+
+if(genre == 18){
+category = 'drama';
+}
+
+if(genre == 27){
+category = 'horror';
+}
+
+if(genre == 16){
+category = 'animation';
+}
+
+if(genre == 53){
+category = 'thriller';
+}
+
+moviesGrid.innerHTML += `
+
+<div class="movie-card ${category}">
+
+<img src="${poster}">
+
+<h3>
+${movie.title}
+</h3>
+
+<p class="movie-category">
+
+⭐ ${movie.vote_average.toFixed(1)}
+
+</p>
+
+<button class="movie-btn"
+onclick="openMovie('${movie.title.replace(/'/g,"")}', '${poster}')">
+
+Buy Ticket
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+loadTrending();
+loadMovies();
+
+
+
+
+
+/* CINEMAS */
+
+const cinemas = {
+
+Berlin: [
+
+{
+name:'CineStar Berlin',
+addresses:[
+
+'Potsdamer Str. 4, 10785 Berlin, Germany',
+'Berlin Mall, Leipziger Platz 12, Berlin, Germany',
+'Kurfürstendamm 227, Berlin, Germany'
+
+]
+},
+
+{
+name:'Zoo Palast',
+addresses:[
+
+'Hardenbergstraße 29A, 10623 Berlin, Germany',
+'Breitscheidplatz 1, Berlin, Germany'
+
+]
+},
+
+{
+name:'UCI Luxe Mercedes Platz',
+addresses:[
+
+'Mildred-Harnack-Straße 13, 10243 Berlin, Germany',
+'Mercedes Platz 1, Berlin, Germany'
+
+]
+}
+
+],
+
+
+
+London: [
+
+{
+name:'Odeon Luxe Leicester Square',
+addresses:[
+
+'24-26 Leicester Square, London WC2H 7JY',
+'12 Coventry St, London W1D 6BZ'
+
+]
+},
+
+{
+name:'Vue West End',
+addresses:[
+
+'3 Cranbourn St, London WC2H 7AL',
+'Piccadilly Circus, London W1J'
+
+]
+},
+
+{
+name:'BFI IMAX',
+addresses:[
+
+'1 Charlie Chaplin Walk, London SE1 8XR',
+'Waterloo Rd, London SE1'
+
+]
+}
+
+],
+
+
+
+'New York': [
+
+{
+name:'AMC Empire 25',
+addresses:[
+
+'234 W 42nd St, New York, NY 10036',
+'300 W 34th St, New York, NY'
+
+]
+},
+
+{
+name:'Regal Battery Park',
+addresses:[
+
+'102 N End Ave, New York, NY 10282',
+'250 Vesey St, New York, NY'
+
+]
+},
+
+{
+name:'AMC Lincoln Square',
+addresses:[
+
+'1998 Broadway, New York, NY 10023',
+'Lincoln Center Plaza, New York'
+
+]
+}
+
+],
+
+
+
+'Los Angeles': [
+
+{
+name:'TCL Chinese Theatre',
+addresses:[
+
+'6925 Hollywood Blvd, Hollywood, CA 90028',
+'Hollywood Walk of Fame, Los Angeles'
+
+]
+},
+
+{
+name:'Regal LA Live',
+addresses:[
+
+'1000 W Olympic Blvd, Los Angeles, CA 90015',
+'LA Live Plaza, Los Angeles'
+
+]
+},
+
+{
+name:'AMC Burbank 16',
+addresses:[
+
+'125 E Palm Ave, Burbank, CA 91502',
+'Downtown Burbank, Los Angeles'
+
+]
+}
+
+]
+
+};
+
+
+
+
+
+const citySelect =
+document.getElementById('citySelect');
+
+const cinemaSelect =
+document.getElementById('cinemaSelect');
+
+const addressInput =
+document.getElementById('customCinema');
+
+const addressSuggestions =
+document.getElementById('addressSuggestions');
+
+
+
+
+
+citySelect.addEventListener('change',()=>{
+
+const city =
+citySelect.value;
+
+cinemaSelect.innerHTML = `
+<option value="">
+Select Cinema
+</option>
+`;
+
+addressSuggestions.innerHTML='';
+
+if(cinemas[city]){
+
+cinemas[city].forEach(cinema=>{
+
+cinemaSelect.innerHTML += `
+
+<option value="${cinema.name}">
+${cinema.name}
+</option>
+
+`;
+
+});
+
+}
+
+});
+
+
+
+
+
+cinemaSelect.addEventListener('change',()=>{
+
+const city =
+citySelect.value;
+
+const cinemaName =
+cinemaSelect.value;
+
+addressSuggestions.innerHTML='';
+
+addressInput.value='';
+
+const selectedCinema =
+cinemas[city].find(
+c => c.name === cinemaName
+);
+
+if(selectedCinema){
+
+selectedCinema.addresses.forEach(address=>{
+
+addressSuggestions.innerHTML += `
+
+<option value="${address}">
+
+`;
+
+});
+
+}
+
+});
+
+
+
+
+
+/* OPEN MOVIE */
+
+function openMovie(movie,poster){
+
+const city =
+document.getElementById('citySelect').value;
+
+const cinemaName =
+document.getElementById('cinemaSelect').value;
+
+const cinemaAddress =
+document.getElementById('customCinema').value;
+
+if(!city){
+
+alert('Select city');
+
+return;
+
+}
+
+if(!cinemaName){
+
+alert('Select cinema');
+
+return;
+
+}
+
+if(!cinemaAddress){
+
+alert('Enter address');
+
+return;
+
+}
+
+localStorage.setItem(
+'selectedCity',
+city
+);
+
+localStorage.setItem(
+'selectedCinema',
+cinemaName
+);
+
+localStorage.setItem(
+'selectedCinemaAddress',
+cinemaAddress
+);
+
+localStorage.setItem(
+'movie',
+movie
+);
+
+localStorage.setItem(
+'moviePoster',
+poster
+);
+
+window.location.href =
+'booking.html';
+
+}
+
+
+
+
+
+/* SLIDER */
+
+document.getElementById('nextBtn')
+.onclick = ()=>{
+
+slider.scrollBy({
+left:400,
+behavior:'smooth'
+});
+
+};
+
+document.getElementById('prevBtn')
+.onclick = ()=>{
+
+slider.scrollBy({
+left:-400,
+behavior:'smooth'
+});
+
+};
+
+
+
+
+
+/* SEARCH */
+
+document.getElementById('searchInput')
+.addEventListener('input',(e)=>{
+
+const value =
+e.target.value.toLowerCase();
+
+const cards =
+document.querySelectorAll('.movie-card');
+
+cards.forEach(card=>{
+
+const text =
+card.innerText.toLowerCase();
+
+if(text.includes(value)){
+
+card.style.display='block';
+
+}else{
+
+card.style.display='none';
+
+}
+
+});
+
+});
+
+
+
+
+
+/* CATEGORY FILTER */
+
+const categoryButtons =
+document.querySelectorAll('.category-btn');
+
+document.addEventListener('click',(e)=>{
+
+if(e.target.classList.contains('category-btn')){
+
+categoryButtons.forEach(btn=>{
+btn.classList.remove('active');
+});
+
+e.target.classList.add('active');
+
+const category =
+e.target.dataset.category;
+
+const cards =
+document.querySelectorAll('.movie-card');
+
+cards.forEach(card=>{
+
+if(
+category === 'all' ||
+card.classList.contains(category)
+){
+
+card.style.display='block';
+
+}else{
+
+card.style.display='none';
+
+}
+
+});
+
+}
+
+});
+
+</script>
+
+</body>
+</html>

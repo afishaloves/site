@@ -1,0 +1,997 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #050505;
+    font-family: Inter;
+    color: white;
+    overflow-x: hidden;
+}
+
+header {
+    padding: 30px 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.logo span {
+    color: #ff2020;
+}
+
+.nav-right {
+    display: flex;
+    gap: 20px;
+}
+
+select {
+    height: 56px;
+    padding: 0 18px;
+    background: #111;
+    border: none;
+    color: white;
+    border-radius: 14px;
+}
+
+.hero {
+    height: 80vh;
+    background: url('https://picsum.photos/1920/1080') center/cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 80px;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 72px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 20px;
+    color: #bbb;
+    margin-bottom: 30px;
+}
+
+.hero button {
+    width: 180px;
+    height: 56px;
+    background: #ff2020;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 14px;
+    cursor: pointer;
+}
+
+.trending {
+    padding: 80px 40px;
+}
+
+.trending-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.slider-buttons {
+    display: flex;
+    gap: 14px;
+}
+
+.slider-buttons button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: #111;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.slider {
+    display: flex;
+    gap: 20px;
+    overflow: auto;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.slider::-webkit-scrollbar {
+    display: none;
+}
+
+.slide {
+    min-width: 260px;
+    cursor: pointer;
+    transition: 0.3s;
+    background: #111;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.slide:hover {
+    transform: scale(1.04);
+}
+
+.slide img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+}
+
+.slide-content {
+    padding: 16px;
+}
+
+.slide-content h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.slide-btn {
+    width: 100%;
+    height: 48px;
+    border: none;
+    background: #ff2020;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 14px;
+    transition: 0.3s;
+}
+
+.slide-btn:hover {
+    transform: scale(1.03);
+    background: #ff3b3b;
+}
+
+.movies {
+    padding: 0 40px 80px;
+}
+
+.movies-top {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+#searchInput,
+#cinemaSelect,
+#customCinema {
+    height: 56px;
+    background: #111;
+    border: none;
+    border-radius: 14px;
+    padding: 0 18px;
+    color: white;
+    min-width: 260px;
+}
+
+.categories {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.category-btn {
+    height: 50px;
+    padding: 0 24px;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    color: #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.category-btn:hover {
+    background: #ff2020;
+}
+
+.category-btn.active {
+    background: #ff2020;
+}
+
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.movie-card {
+    background: #111;
+    padding: 16px;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin-bottom: 16px;
+}
+
+.movie-card h3 {
+    margin-bottom: 10px;
+}
+
+.movie-card button {
+    width: 100%;
+    height: 50px;
+    background: #ff2020;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.movie-category {
+    color: #ff2020;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+footer {
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+footer a {
+    color: #777;
+    text-decoration: none;
+}
+
+.steps {
+    display: flex;
+    gap: 20px;
+    padding: 30px 40px;
+}
+
+.step {
+    padding: 12px 22px;
+    background: #111;
+    color: #666;
+    border-radius: 12px;
+}
+
+.step.active {
+    background: #ff2020;
+    color: white;
+}
+
+.booking-container {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) 360px;
+    gap: 30px;
+    padding: 20px 40px 60px;
+    max-width: 1600px;
+    margin: auto;
+}
+
+.movie-header {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.movie-header img {
+    width: 260px;
+    height: 360px;
+    object-fit: cover;
+    border-radius: 24px;
+}
+
+.movie-details {
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.movie-details span {
+    display: block;
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.movie-details strong {
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.date-list {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+.date {
+    padding: 10px 16px;
+    background: #111;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.active-date {
+    background: #ff2020;
+}
+
+.screen {
+    width: 70%;
+    height: 6px;
+    background: #777;
+    margin: 0 auto 70px;
+    border-radius: 30px;
+    text-align: center;
+    padding-top: 18px;
+    font-size: 12px;
+    color: #777;
+}
+
+#rows {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+}
+
+.seat {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 12px;
+    cursor: pointer;
+    background: #1a1a1a;
+    transition: 0.2s;
+}
+
+.seat:hover {
+    transform: scale(1.08);
+}
+
+.available {
+    background: #2ecc71;
+}
+
+.vip {
+    background: #f39c12;
+}
+
+.selected {
+    background: #ff2020 !important;
+}
+
+.right {
+    background: #111;
+    padding: 30px;
+    border-radius: 26px;
+    height: fit-content;
+    position: sticky;
+    top: 30px;
+}
+
+.order-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.right button,
+.payment-box button {
+    width: 100%;
+    height: 56px;
+    background: #ff2020;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.payment-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.payment-box {
+    width: 460px;
+    background: #111;
+    padding: 40px;
+    border-radius: 30px;
+}
+
+.payment-box input {
+    width: 100%;
+    height: 56px;
+    background: #1a1a1a;
+    border: none;
+    padding: 0 18px;
+    margin-bottom: 16px;
+    border-radius: 14px;
+    color: white;
+}
+
+
+/* === ОСНОВНЫЕ СТИЛИ БИЛЕТА (ДЕСКТОП С ВЫРАВНИВАНИЕМ ПО ЦЕНТРУ) === */
+
+.ticket-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px;
+}
+
+.ticket-modern {
+    width: 1000px;
+    background: #111;
+    border-radius: 32px;
+    padding: 40px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.ticket-top {
+    display: flex;
+    flex-direction: column;   /* Изменено на column для центрирования элементов в стек */
+    align-items: center;       /* Центрирует заголовок и правый блок по горизонтали */
+    text-align: center;        /* Центрирует текст */
+    margin-bottom: 40px;
+    gap: 20px;
+}
+
+.ticket-top h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.ticket-top p {
+    color: #777;
+}
+
+/* Контейнер с VIP-плашкой и QR-кодом */
+.ticket-top-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important; /* Принудительно центрируем содержимое на десктопе */
+    gap: 12px;
+}
+
+.ticket-badge {
+    padding: 14px 24px;
+    background: #ff2020;
+    border-radius: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.ticket-qr {
+    width: 130px;
+    height: 130px;
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    padding: 8px;
+}
+
+.ticket-qr img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ticket-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 26px;
+    margin-bottom: 50px;
+    text-align: center;        /* Все блоки с инфой теперь выровнены по центру */
+}
+
+.ticket-info span {
+    display: block;
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 8px;
+}
+
+.ticket-info strong {
+    font-size: 22px;
+}
+
+.ticket-bottom {
+    display: flex;
+    justify-content: center;   /* Центрируем блок со штрих-кодом */
+    align-items: center;
+    border-top: 1px dashed rgba(255,255,255,0.12);
+    padding-top: 40px;
+}
+
+
+/* === МЕДИА-ЗАПРОСЫ ДЛЯ ДЕСКТОПОВ И ПЛАНШЕТОВ === */
+
+@media(max-width:1200px) {
+    .movies-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media(max-width:900px) {
+    .movies-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .booking-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:600px) {
+    .movies-grid {
+        grid-template-columns: 1fr;
+    }
+    .hero h1 {
+        font-size: 48px;
+    }
+}
+
+
+/* === АДАПТИВ ПОД СМАРТФОНЫ И ОПТИМИЗАЦИЯ БИЛЕТА === */
+
+@media(max-width:900px) {
+    header {
+        padding: 16px 20px;
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .nav-right {
+        width: 100%;
+    }
+
+    #citySelect {
+        width: 100%;
+    }
+
+    .hero {
+        height: 70vh;
+        padding: 20px;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+        line-height: 1.1;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    .hero-btn {
+        width: 100%;
+        height: 52px;
+        font-size: 16px;
+    }
+
+    .trending {
+        padding: 20px;
+    }
+
+    .trending-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .slider {
+        gap: 14px;
+    }
+
+    .slide {
+        min-width: 220px;
+    }
+
+    .slide img {
+        height: 320px;
+    }
+
+    .slide-content h3 {
+        font-size: 18px;
+    }
+
+    .slide-btn {
+        height: 46px;
+        font-size: 15px;
+    }
+
+    .movies {
+        padding: 20px;
+    }
+
+    .movies-top {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #searchInput,
+    #cinemaSelect,
+    #customCinema {
+        width: 100%;
+        height: 52px;
+        font-size: 15px;
+    }
+
+    .categories {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        flex-wrap: nowrap;
+    }
+
+    .category-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .movies-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    .movie-card {
+        border-radius: 18px;
+    }
+
+    .movie-card img {
+        height: 260px;
+    }
+
+    .movie-card h3 {
+        font-size: 16px;
+    }
+
+    .movie-btn {
+        height: 46px;
+        font-size: 15px;
+    }
+
+    footer {
+        padding: 30px 20px;
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    /* СТРАНИЦА ВЫБОРА МЕСТА */
+    .booking-container {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .movie-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .movie-header img {
+        width: 100%;
+        height: 420px;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+
+    .screen {
+        height: auto;
+        margin-top: 25px;
+        font-size: 14px;
+    }
+
+    #rows {
+        overflow-x: auto;
+        padding-bottom: 15px;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .row {
+        min-width: max-content;
+    }
+
+    .seat {
+        width: 34px;
+        height: 34px;
+        font-size: 11px;
+    }
+
+    /* ФОРМА БРОНИРОВАНИЯ */
+    .payment-page {
+        padding: 20px;
+    }
+
+    .payment-box {
+        width: 100%;
+        padding: 25px;
+    }
+
+    .payment-box h2 {
+        font-size: 28px;
+    }
+
+    .payment-box input,
+    .payment-box button {
+        height: 54px;
+        font-size: 16px;
+    }
+
+    .steps {
+        padding: 0 20px;
+        overflow-x: auto;
+    }
+
+    .step {
+        min-width: max-content;
+    }
+
+    /* === СТИЛИ ЦЕНТРИРОВАННОГО БИЛЕТА НА ТЕЛЕФОНАХ === */
+    .ticket-page {
+        padding: 10px;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ticket-modern {
+        width: 100%;
+        max-width: 500px;
+        padding: 24px;
+        border-radius: 24px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    }
+
+    .ticket-top {
+        flex-direction: column;
+        align-items: center;    /* Выравнивание контейнеров по центру экрана */
+        text-align: center;     /* Текст по центру */
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .ticket-top h1 {
+        font-size: 28px;
+        margin-bottom: 4px;
+        text-align: center;
+    }
+
+    .ticket-top-right {
+        align-items: center !important; /* Меняем с левого края строго по центру */
+        width: 100%;
+        gap: 15px !important;
+    }
+
+    .ticket-badge {
+        padding: 8px 16px;
+        font-size: 13px;
+        border-radius: 8px;
+        align-self: center;     /* Центрируем плашку VIP */
+    }
+
+    .ticket-qr {
+        width: 140px;
+        height: 140px;
+        align-self: center;     /* Центрируем сам QR-код */
+    }
+
+    .ticket-info {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-bottom: 35px;
+        text-align: center;     /* Текстовые поля встают по центру в один столбец */
+    }
+
+    .ticket-info div {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 8px;
+    }
+
+    .ticket-info strong {
+        font-size: 16px;
+    }
+
+    .ticket-bottom {
+        padding-top: 30px;
+    }
+
+    /* Перехват инлайн-стилей генератора штрих-кода */
+    .ticket-bottom > div:first-child {
+        margin-top: 0px !important;
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .ticket-bottom img[src*="barcode"] {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 290px !important;
+    }
+
+    .ticket-bottom div[style*="letter-spacing"] {
+        font-size: 22px !important;
+        letter-spacing: 4px !important;
+        margin-top: 8px !important;
+    }
+}
+
+
+/* === МАЛЕНЬКИЕ СМАРТФОНЫ === */
+
+@media(max-width:520px) {
+    .hero-content h1 {
+        font-size: 34px;
+    }
+
+    .movies-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .slide {
+        min-width: 190px;
+    }
+
+    .slide img {
+        height: 280px;
+    }
+
+    .movie-card img {
+        height: 320px;
+    }
+
+    .movie-header img {
+        height: 300px;
+    }
+
+    .seat {
+        width: 30px;
+        height: 30px;
+        font-size: 10px;
+    }
+
+    .ticket-modern {
+        padding: 16px;
+    }
+
+    .ticket-top h1 {
+        font-size: 22px;
+    }
+}
+
+.row-letter {
+    width: 30px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #ff2020;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.time-slot {
+    padding: 10px 16px;
+    background: #111;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+@media(max-width: 900px) {
+    .row-letter {
+        height: 34px;
+        font-size: 14px;
+        margin-right: 5px;
+    }
+}
+
+.time-slot {
+    padding: 10px 16px;
+    background: #111;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+    border: 1px solid transparent;
+}
+
+/* Класс, который JS будет давать нажатой кнопке времени */
+.time-slot.active-time {
+    background: #ff2020 !important;
+    color: #fff !important;
+}
+
+/* Строка для полей MM/YY и CVV */
+.card-row {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+.card-row input {
+    flex: 1; /* Разделяет ширину поровну 50/50 */
+}
+
+/* Красивый фокус на полях ввода кода SMS */
+#smsCode:focus {
+    border: 1px solid #ff2020;
+    outline: none;
+}
